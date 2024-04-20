@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ResultadoComponent } from '../resultado/resultado.component';
+import { ResultadoComponent } from './resultado/resultado.component';
 
 @Component({
   selector: 'app-prompt',
