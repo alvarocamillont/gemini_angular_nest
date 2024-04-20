@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ResultadoComponent } from './resultado/resultado.component';
+import { PromptService } from './prompt.service';
 
 @Component({
   selector: 'app-prompt',
@@ -10,10 +11,17 @@ import { ResultadoComponent } from './resultado/resultado.component';
   styleUrl: './prompt.component.css',
 })
 export class PromptComponent {
-  consulta: string = '';
+  promptService = inject(PromptService);
+
+  prompt: string = '';
   resultados = signal(['']);
 
   buscar() {
-    this.resultados.update((resultados) => [...resultados, 'TESTESSSS']);
+    const promptRequest = { prompt: this.prompt };
+    this.promptService
+      .sendPrompt(promptRequest)
+      .subscribe((response) =>
+        this.resultados.update((resultados) => [...resultados, response.text])
+      );
   }
 }
