@@ -21,9 +21,8 @@ export class PromptService {
 
   async generateText(prompt: string): Promise<GenAiResponse> {
     const contents = this.createContent(prompt);
-
     const genAI = new GoogleGenerativeAI(APIKEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const result = await model.generateContent({ contents });
     const response = await result.response;
